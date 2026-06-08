@@ -8,11 +8,12 @@
     "express": "^5.1.0"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node src/server/server.js",
+    "test:e2e": "playwright test"
   },
   "name": "game-project-if",
   "version": "1.0.0",
-  "main": "hello-world.spec.js",
+  "main": "src/server/server.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Leonardonascimentodossantos/Game-project-IF.git"

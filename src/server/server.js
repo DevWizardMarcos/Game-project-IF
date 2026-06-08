@@ -6,16 +6,24 @@ const cors = require('cors');
 
 const app = express();
 const PORT = 3000;
-const USERS_FILE = path.join(__dirname, 'login-system-project', 'src', 'usuario.json');
+const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+const PAGES_DIR = path.join(PUBLIC_DIR, 'pages');
+const USERS_FILE = path.join(__dirname, '..', 'data', 'users.json');
+
+if (!fs.existsSync(USERS_FILE)) {
+    fs.writeFileSync(USERS_FILE, '[]');
+}
 
 app.use(cors());
 app.use(bodyParser.json());
-// Sirva arquivos estáticos da raiz do projeto
-app.use(express.static(__dirname));
+app.use(express.static(PUBLIC_DIR));
 
-// Redirecione a raiz para login.html
 app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'login.html'));
+    res.redirect('/pages/login.html');
+});
+
+app.get('/pages/:page', (req, res) => {
+    res.sendFile(path.join(PAGES_DIR, req.params.page));
 });
 
 // Rota para registrar novo usuário
